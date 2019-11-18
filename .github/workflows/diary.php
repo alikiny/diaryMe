@@ -25,6 +25,30 @@ if (!$_SESSION['id']) {
 
 }
 
+//Search title function
+if (array_key_exists('search', $_POST) and $_POST["search"]) {
+    $foundEntry="";
+    if($_POST['searchTitle']){
+        $query = "SELECT * FROM `diaries` WHERE userId = '" . mysqli_real_escape_string($link, $_SESSION['id']) . "'
+        AND title='" . mysqli_real_escape_string($link, $_POST['searchTitle']) . "' ";
+
+        $result = mysqli_query($link, $query);
+        if(mysqli_num_rows($result)>0){
+            $row = mysqli_fetch_array($result);
+            $foundEntry= $row['title'];
+            if(file_exists($row['path'])){
+                $searchContent=file_get_contents($row['path']);
+            }
+        }else{
+            echo "<div class='container m-5'>Title not found. You can view your entry list ".'<a href="#viewEntry" data-toggle="collapse" aria-expanded="true" aria-controls="viewEntry">here</a></div>';
+        }
+        
+
+    }else{
+        echo "Please enter a title";
+    }
+}
+
 if (array_key_exists('submit', $_POST) and $_POST["submit"]) {
     $error = "";
 
@@ -93,16 +117,21 @@ $result5 = mysqli_query($link, $query5);
             </li>
 
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Enter entry's title" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        <form method ="post" class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" placeholder="Enter entry's title" aria-label="Search" type="text" name="searchTitle">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="search" value="search">Search</button>
         </form>
     </div>
 </nav>
 
 <div id="diaryBody">
+    
     <div class="container-fluid m-5 collapse show" id="newEntry" data-parent="#diaryBody">
         <h4 style="text-align:center;margin: 40px">Start your new memory today with <a href="index.php">diaryMe</a></h4>
+        <p><? if($foundEntry!=""){
+                echo '<p>Found you entry: '.$foundEntry.' in the entry list</p>'; 
+                echo '<p>File content: '.$searchContent.'</p>';
+        } ?></p>
         <div><?php echo $error;
                 echo $msg; ?></div>
         <form method="post">
@@ -204,6 +233,8 @@ include("footer.php");
 <script type="text/javascript">
     //display the msg from unlink.php page to this page
     (function(){
+        
+        
         document.getElementById("msg").innerHTML=sessionStorage.getItem("unlink");
         
         if(sessionStorage.getItem("index")=="viewEntry"){
