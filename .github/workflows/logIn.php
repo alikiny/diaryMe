@@ -1,11 +1,13 @@
 <?php
 
-
-
-include("header.php");
-
-
 session_start();
+if($_SESSION['id']){
+    header("Location: diary.php");
+}else{
+    include("header.php");
+
+
+
 
 if (array_key_exists("submit", $_POST)) {
     echo "Start sign up";
@@ -53,6 +55,9 @@ if (array_key_exists("submit", $_POST)) {
         }
     }
     echo $error;
+}
+
+
 }
 
 
