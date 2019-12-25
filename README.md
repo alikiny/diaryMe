@@ -3,39 +3,6 @@ Simple Webapp for writing and saving your notes (Using SQL database, so required
 Watch the live demo at thenycode.com/diary 
 
 
-<!doctype html>
-<html lang="en">
-
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-
-    
-    <!--Bootstrap CSS-->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-   
-
-    <!-- Google font family : Lobster -->
-    <link href="https://fonts.googleapis.com/css?family=Lobster+Two&display=swap" rel="stylesheet">
-
-    <!-- External css file-->
-    <link rel="stylesheet" href="style.css">
-    
-    
-    
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    
-    <script src="js/bootstrap.min.js"></script>
-    
-    <script src="script.js"></script>
-    
-    <title>Home page</title>
-</head>
-
-<body>
-
 <div class="container-fluid" id="theme"></div>
     <div class="bg-logo">
         <div id="logo"></div>
@@ -110,6 +77,3 @@ Watch the live demo at thenycode.com/diary
     <!--<script src="js/bootstrap.min.js"></script>-->
     
    
-</body>
-
-</html>
